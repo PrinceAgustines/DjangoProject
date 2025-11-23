@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Enrollments</title>
+    <link rel="stylesheet" href="{% static 'enrollmentstyle.css' %}">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <h2 class="logo"><a href="/dashboard">School Management System</h2>
+        <nav>
+            <a href="/student">Students</a>
+            <a href="/school">Schools</a>
+            <a href="/enrollment">Enrollment</a>
+            <a href="/course">Courses</a>
+            <a href="/tuitionPayment">Payments</a>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <h1>Enrollment</h1>
+
+        <!-- Search Field -->
+        <form method="GET" action="{% url 'Enrollment' %}">
+            <input type="text" name="search" placeholder="Search..." value="{{ search_query }}" class="search-bar">
+            <button type="submit" class="search-btn">Search</button>
+        </form>
+
+        <div class="content-row">
+
+            <!-- Enrollment Table -->
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Enrollment ID</th>
+                        <th>Student ID</th>
+                        <th>School Year</th>
+                        <th>Year Level</th>
+                        <th>Enrollment Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if enrollments %}
+                        {% for x in enrollments %}
+                        <tr>
+                            <td>{{ x.enrollment_ID }}</td>
+                            <td>{{ x.student_ID }}</td>
+                            <td>{{ x.school_year }}</td>
+                            <td>{{ x.year_level }}</td>
+                            <td>{{ x.enrollment_status }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="5">No enrollments found.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+
+            <!-- Action Buttons -->
+            <div class="button-panel">
+                <button class="btn" onclick="window.location.href='{% url 'AddEnrollment' %}'">ADD</button>
+                <button class="btn">EDIT</button>
+                <button class="btn delete">DELETE</button>
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>
