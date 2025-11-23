@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Schools</title>
+    <link rel="stylesheet" href="{% static 'schoolstyle.css' %}">
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="logo">School Management System</div>
+        <nav>
+            <a href="/student">Students</a>
+            <a href="/school">Schools</a>
+            <a href="/enrollment">Enrollment</a>
+            <a href="/course">Courses</a>
+            <a href="/tuitionPayment">Payments</a>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <h1>Schools</h1>
+
+        <!-- Search Bar -->
+        <form method="GET" action="{% url 'School' %}">
+            <input type="text" name="search" placeholder="Search..." value="{{ search_query }}" class="search-bar">
+            <button type="submit" class="search-btn">Search</button>
+        </form>
+        <div class="content-row">
+
+            <!-- Table -->
+            <table class="schools-table">
+                <thead>
+                    <tr>
+                        <th>School ID</th>
+                        <th>School Name</th>
+                        <th>Address</th>
+                        <th>Contact Number</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if schools %}
+                        {% for x in schools %}
+                        <tr>
+                            <td>{{ x.school_ID }}</td>
+                            <td>{{ x.school_name }}</td>
+                            <td>{{ x.address }}</td>
+                            <td>{{ x.contact_number }}</td>
+                            <td>{{ x.email }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="5">No schools found.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+
+            <!-- Buttons -->
+            <div class="button-panel">
+                <button class="btn" onclick="window.location.href='{% url 'AddSchool' %}'">ADD</button>
+                <button class="btn">EDIT</button>
+                <button class="btn delete">DELETE</button>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>

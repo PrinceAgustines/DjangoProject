@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <h1 class="title">Login</h1>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST" class="login-card">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit" class="btn-login">Login</button>
+        </form>
+
+        <p class="register-text">
+            Don't have an account?
+            <a href="{% url 'register_user' %}" class="register-link">Register</a>
+        </p>
+
+    </div>
+
+</body>
+</html>
